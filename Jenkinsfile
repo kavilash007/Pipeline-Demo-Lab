@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code repository
-                git 'https://github.com/kavilash007/Pipeline-Demo-Lab.git'  // Replace with your actual repo
+                git branch: 'main', url: 'https://github.com/kavilash007/Pipeline-Demo-Lab.git'
             }
         }
         stage('Build Docker Images') {
