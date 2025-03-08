@@ -1,0 +1,25 @@
+version: "3"
+services:
+  app:
+    build: .
+    container_name: flask-app
+    ports:
+      - "5000:5000"  # Exposes port 5000 on host, if you want to directly access Flask from outside.
+    networks:
+      - app-network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx-reverse-proxy
+    ports:
+      - "8080:80"  # Exposes port 8080 to access Nginx reverse proxy.
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge  # Creates a custom network for internal communication.
