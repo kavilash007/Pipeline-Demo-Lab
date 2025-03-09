@@ -30,9 +30,9 @@ pipeline {
                 script {
                     // Use Jenkins credentials to login to Docker Hub securely
                     withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKER_TOKEN')]) {
-                        sh "docker login -u kavilash -p ${DOCKER_TOKEN}"
+                        sh "/usr/local/bin/docker login -u kavilash -p ${DOCKER_TOKEN}"
                     }
-                    sh 'docker compose push'
+                    sh '/usr/local/bin/docker compose push'
                 }
             }
         }
