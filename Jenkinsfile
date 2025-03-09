@@ -21,7 +21,7 @@ pipeline {
                 script {
                     // Build the Docker images
                    
-                    sh '/usr/local/bin/ docker compose build'
+                    sh '/usr/local/bin/docker compose build'
                 }
             }
         }
