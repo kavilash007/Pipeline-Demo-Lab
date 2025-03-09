@@ -11,6 +11,11 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/kavilash007/Pipeline-Demo-Lab.git'
             }
         }
+        stage('Check Jenkins PATH') { // Added stage
+            steps {
+                sh 'echo $PATH'
+            }
+        }
         stage('Build Docker Images') {
             steps {
                 script {
