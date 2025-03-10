@@ -3,6 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = 'nginx-reverse-proxy'
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        PATH = "/usr/local/bin:$PATH"
     }
     stages {
         stage('Checkout') {
