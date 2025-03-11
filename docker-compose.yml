@@ -1,10 +1,11 @@
 version: "3"
+
 services:
   app:
     build: .
     container_name: flask-app
     ports:
-      - "5000:5000"  # Exposes port 5000 on host, if you want to directly access Flask from outside.
+      - "5000:5000"
     networks:
       - app-network
 
@@ -14,12 +15,43 @@ services:
       dockerfile: Dockerfile.nginx
     container_name: nginx-reverse-proxy
     ports:
-      - "8080:80"  # Exposes port 8080 to access Nginx reverse proxy.
+      - "8080:80"
     depends_on:
       - app
     networks:
       - app-network
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Config file for Prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Change for security
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring
+      - app-network
+
 networks:
   app-network:
-    driver: bridge  # Creates a custom network for internal communication.
+    driver: bridge
+  monitoring:
+    driver: bridge
+
+volumes:
+  grafana-data:
