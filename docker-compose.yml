@@ -48,7 +48,14 @@ services:
     networks:
       - app-network
       - monitoring   # Ensure grafana is on monitoring network
-
+   cadvisor:
+    image: google/cadvisor
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+      - monitoring
 networks:
   app-network:
     driver: bridge
