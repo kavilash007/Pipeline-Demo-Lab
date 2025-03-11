@@ -25,7 +25,7 @@ services:
     image: prom/prometheus
     container_name: prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Config file for Prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
     networks:
@@ -36,9 +36,9 @@ services:
     image: grafana/grafana
     container_name: grafana
     ports:
-      - "3000:3000"
+      - "3030:3000"  # Changed Grafana port to 3030
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Change for security
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-data:/var/lib/grafana
     depends_on:
