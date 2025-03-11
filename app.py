@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
