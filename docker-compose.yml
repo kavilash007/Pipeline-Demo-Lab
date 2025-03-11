@@ -1,6 +1,16 @@
 version: "3"
 
 services:
+  loki:
+    image: grafana/loki:2.8.0
+    container_name: loki
+    ports:
+      - "3100:3100"  # Loki API port
+    networks:
+      - monitoring
+    volumes:
+      - ./loki-config.yml:/etc/loki/loki-config.yml
+
   app:
     build: .
     container_name: flask-app
@@ -56,6 +66,15 @@ services:
       - "8080:8080"
     networks:
       - app-network
+      - monitoring
+
+  promtail:
+    image: grafana/promtail:2.8.0
+    container_name: promtail
+    volumes:
+      - /var/log:/var/log  # Collect log files
+      - ./promtail-config.yml:/etc/promtail/promtail-config.yml
+    networks:
       - monitoring
 
 networks:
