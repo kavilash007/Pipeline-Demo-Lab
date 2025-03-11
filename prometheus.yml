@@ -4,12 +4,8 @@ global:
 scrape_configs:
   - job_name: 'nginx'
     static_configs:
-      - targets: ['nginx:80']
+      - targets: ['nginx:80']  # Nginx service is accessible by name on the app-network
 
   - job_name: 'flask-app'
     static_configs:
-      - targets: ['flask-app:5000']
- 
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['flask-app:5000']  # Flask app service is accessible by name on the app-network
