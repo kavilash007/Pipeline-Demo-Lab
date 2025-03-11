@@ -1,4 +1,4 @@
-version: "3"
+#version: "3"
 
 services:
   loki:
@@ -18,7 +18,7 @@ services:
       - "5000:5000"
     networks:
       - app-network
-      - monitoring   # Ensure app is also on monitoring network
+      - monitoring   
 
   nginx:
     build:
@@ -31,7 +31,7 @@ services:
       - app
     networks:
       - app-network
-      - monitoring   # Ensure nginx is also on monitoring network
+      - monitoring   
 
   prometheus:
     image: prom/prometheus
@@ -42,7 +42,7 @@ services:
       - "9090:9090"
     networks:
       - app-network
-      - monitoring   # Ensure prometheus is on both networks
+      - monitoring   
 
   grafana:
     image: grafana/grafana
@@ -57,7 +57,7 @@ services:
       - prometheus
     networks:
       - app-network
-      - monitoring   # Ensure grafana is on monitoring network
+      - monitoring   
 
   cadvisor:
     image: google/cadvisor
