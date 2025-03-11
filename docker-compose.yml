@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile.nginx
     container_name: nginx-reverse-proxy
     ports:
-      - "8080:80"
+      - "8888:80"
     depends_on:
       - app
     networks:
